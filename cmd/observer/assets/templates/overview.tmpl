@@ -1,0 +1,48 @@
+<style>
+h2 {
+	margin: 2rem 0 1rem 0;
+}
+.o-charts {
+	margin-top: 1.5rem;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 4rem;
+	grid-auto-rows: minmax(100px, auto);
+}
+.o-chart-full {
+	grid-column: 1 / 3;
+}
+h2 {
+	font-size: 20px;
+}
+</style>
+
+<template>
+{{ template "./_head" . }}
+<h1>Overview</h1>
+
+<div>
+	<h2>Request ID</h2>
+	<input type="text" placeholder="request id">
+	<input type="submit" value="Search">
+</div>
+
+<h2>Charts</h2>
+<div class="o-charts">
+	<div>
+		<canvas class="o-chart" id="role-chart"></canvas>
+	</div>
+	<div>
+		<canvas class="o-chart" id="host-chart"></canvas>
+	</div>
+</div>
+</template>
+
+<script>
+const set = {{ .EventSet }}
+console.log(set)
+window.addEventListener("load", () => {
+	loadChart(document.getElementById("role-chart"), set.RoleTimings)
+	loadChart(document.getElementById("host-chart"), set.HostTimings)
+})
+</script>

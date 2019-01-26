@@ -1,0 +1,72 @@
+<style>
+.r-table td {
+	padding: .25rem .5rem;
+}
+.o-charts {
+	margin-top: 1.5rem;
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	grid-gap: 4rem;
+	grid-auto-rows: minmax(100px, auto);
+}
+.o-chart-full {
+	grid-column: 1 / 3;
+}
+</style>
+
+<template>
+{{ template "./_head" . }}
+<h1>Request {{ .RequestID }}</h1>
+</div>
+
+{{ if not .Events }}
+	No events found for that request ID.
+{{ end }}
+
+<div>
+	<h3>Time: {{ .Detail.Duration }}</h3>
+	<h3>Path</h3>
+	<div>
+		<table>
+			{{ range .Detail.RolePath }}
+			<tr>
+				<td>{{ .Msg }}:	<td>{{ .Duration }}
+			{{ end }}
+		</table>
+	</div>
+</div>
+
+<h3>Charts</h3>
+<div class="o-charts">
+	<div class="o-chart-full">
+		<canvas class="o-chart" id="msg-chart"></canvas>
+	</div>
+</div>
+
+<div>
+	<h3>Logs</h3>
+	<table class="r-table">
+		<thead>
+			<th>Time
+			<th>Role
+			<th>Host
+			<th>Msg
+		<tbody>
+		{{ range .Events }}
+			<tr>
+				<td>{{ .Time }}
+				<td>{{ .Role }}
+				<td>{{ .Host }}
+				<td>{{ .Msg }}
+		{{ end }}
+	</table>
+</div>
+</template>
+
+<script>
+const set = {{ .EventSet }}
+console.log(set)
+window.addEventListener("load", () => {
+	loadMsgChart(document.getElementById("msg-chart"), set.MsgTimings)
+})
+</script>

@@ -1,11 +1,11 @@
-package main
+package observer
 
 type LogKey string
 
 const (
 	LogKeyRole      LogKey = "role"
 	LogKeyHost             = "host"
-	LogKeyReqID            = "req_id"
+	LogKeyReqID            = "request_id"
 	LogKeyTimestamp        = "ts"
 	LogKeyMsg              = "msg"
 )
