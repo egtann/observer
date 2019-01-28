@@ -47,18 +47,16 @@ type RequestDetail struct {
 type decTime time.Time
 
 func (t decTime) MarshalJSON() ([]byte, error) {
-	nsec := time.Time(t).UnixNano()
-	sec := float64(nsec) / float64(time.Second)
-	return []byte(fmt.Sprint(sec)), nil
+	return time.Time(t).MarshalJSON()
 }
 
 func (t *decTime) UnmarshalJSON(b []byte) error {
-	var f float64
-	if err := json.Unmarshal(b, &f); err != nil {
+	var i int64
+	if err := json.Unmarshal(b, &i); err != nil {
 		return err
 	}
-	sec := int64(f)
-	nsec := int64(f*float64(time.Millisecond)) % sec
+	sec := i / int64(time.Second)
+	nsec := i % sec
 	*t = decTime(time.Unix(sec, nsec))
 	return nil
 }
