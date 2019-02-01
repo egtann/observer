@@ -2,7 +2,6 @@ package observer
 
 import (
 	"bufio"
-	"context"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -73,7 +72,7 @@ func ParseEvents(rdr io.Reader) ([]*Event, error) {
 	// Since log files tend to be large, bufio.NewScanner can throw
 	// bufio.ErrTooLong, so we read line by line instead.
 	var err error
-	for byt := []byte{}; err != io.EOF && err != context.Canceled; byt, err = r.ReadBytes('\n') {
+	for byt := []byte{}; err != io.EOF; byt, err = r.ReadBytes('\n') {
 		evt := &Event{}
 		if err := json.Unmarshal(byt, evt); err != nil {
 			continue
