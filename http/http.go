@@ -7,8 +7,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/egtann/component"
-	"github.com/egtann/observer"
+	"egt.run/component"
+	"egt.run/observer"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/pkg/errors"

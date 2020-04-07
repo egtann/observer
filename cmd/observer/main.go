@@ -7,7 +7,7 @@ import (
 	"os"
 	"path/filepath"
 
-	obshttp "github.com/egtann/observer/http"
+	obshttp "egt.run/observer/http"
 	"github.com/pkg/errors"
 	"github.com/rs/zerolog"
 )
